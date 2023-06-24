@@ -3,7 +3,7 @@ rm setupTests.js reportWebVitals.js App.test.js App.css logo.svg
 echo "function App() {
   return (
     <div>
-      
+      Hello World
     </div>
   );
 }
