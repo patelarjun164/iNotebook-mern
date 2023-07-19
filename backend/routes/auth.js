@@ -17,7 +17,7 @@ router.post("/createuser", [
     //If there are errors, return bad request and errors
     const result = validationResult(req);
     if (!result.isEmpty()) {
-        res.status(400).json({ errors: result.array() });
+        res.status(400).json({ errors: result.array()});
     }
     //check weather user with this email exist
     try {
