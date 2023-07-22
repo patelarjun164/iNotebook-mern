@@ -10,20 +10,21 @@ const JWT_Secret = "helloworldofc$omputer";
 
 //ROUTE 1:Create a user using: POST "/api/auth/createuser". No login required
 router.post("/createuser", [
-    body('name', 'Enter a valid Name').isLength({ min: 3 }),
+    body('name'),
     body('email', 'Enter a valid Email').isEmail(),
     body('password', 'Password must be of atleast 5 charracter').isLength({ min: 5 })
 ], async (req, res) => {
+    let success = false;
     //If there are errors, return bad request and errors
     const result = validationResult(req);
     if (!result.isEmpty()) {
-        res.status(400).json({ errors: result.array()});
+        res.status(400).json({success, errors: result.array()});
     }
     //check weather user with this email exist
     try {
         let user = await User.findOne({ email: req.body.email });
         if (user) {
-            return res.status(400).json({ error: 'Sorry, user with this email already exist.' })
+            return res.status(400).json({ success, error: 'Sorry, user with this email already exist.' })
         }
         const salt =  bcrypt.genSaltSync(10);
         const secPass = await bcrypt.hash(req.body.password, salt);
@@ -38,7 +39,8 @@ router.post("/createuser", [
             }
         }
         const authToken = jwt.sign(data, JWT_Secret);
-        res.json({authToken});
+        success = true;
+        res.json({success,authToken});
         // res.send(user);  
     } catch (error) {
         console.log(error.message);
@@ -51,6 +53,7 @@ router.post("/login", [
     body('email', 'Enter a valid Email').isEmail(),
     body('password', 'Password can not be blank').exists()
 ], async (req, res) => {
+    let success = false;
     //If there are errors, return bad request and errors
     const result = validationResult(req);
     if (!result.isEmpty()) {
@@ -75,7 +78,8 @@ router.post("/login", [
             }
         }
         const authToken = jwt.sign(data, JWT_Secret);
-        res.json({authToken});
+        success = true;
+        res.json({success,authToken});
 
     } catch (error) {
         console.log(error);
