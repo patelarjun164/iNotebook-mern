@@ -32,8 +32,8 @@ function Signup(props) {
       <h2>Signup to create account for iNotebook</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="name" name="name" className="form-label">Name</label>
-          <input type="text" className="form-control" onChange={onChange} id="name" minLength={5} required />
+          <label htmlFor="name"  className="form-label">Name</label>
+          <input type="text" name="name" className="form-control" onChange={onChange} id="name" minLength={5} required />
         </div>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email address</label>
