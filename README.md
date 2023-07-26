@@ -1,1 +1,1 @@
-https://inotebookarjun.vercel.app/
+https://inotebookarjun.netlify.app
